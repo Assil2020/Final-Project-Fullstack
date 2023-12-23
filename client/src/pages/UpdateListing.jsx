@@ -22,7 +22,7 @@ export default function CreateListing() {
     type: "rent",
     bedrooms: 1,
     bathrooms: 1,
-    regularPrice: 5000,
+    regularPrice: 50,
     discountPrice: 0,
     offer: false,
     parking: false,
@@ -316,7 +316,6 @@ export default function CreateListing() {
                 />
                 <div className="flex flex-col items-center">
                   <p>Discounted price</p>
-
                   {formData.type === "rent" && (
                     <span className="text-xs">(DA / month)</span>
                   )}
@@ -377,7 +376,7 @@ export default function CreateListing() {
             disabled={loading || uploading}
             className="p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
           >
-            {loading ? "Creating..." : "update listing"}
+            {loading ? "Updating..." : "Update listing"}
           </button>
           {error && <p className="text-red-700 text-sm">{error}</p>}
         </div>

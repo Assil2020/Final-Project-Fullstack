@@ -178,19 +178,22 @@ export default function Profile() {
         <p className="text-sm self-center">
           {fileUploadError ? (
             <span className="text-red-700">
-              Error Image upload (image must be less than 2 mb)
+              Erreur de téléchargement de l'image (l'image doit faire moins de 2
+              Mo)
             </span>
           ) : filePerc > 0 && filePerc < 100 ? (
             <span className="text-slate-700">{`Uploading ${filePerc}%`}</span>
           ) : filePerc === 100 ? (
-            <span className="text-green-700">Image successfully uploaded!</span>
+            <span className="text-green-700">
+              Image téléchargée avec succès!
+            </span>
           ) : (
             ""
           )}
         </p>
         <input
           type="text"
-          placeholder="username"
+          placeholder="Nom d'utilisateur"
           defaultValue={currentUser.username}
           id="username"
           className="border p-3 rounded-lg"
@@ -206,7 +209,7 @@ export default function Profile() {
         />
         <input
           type="password"
-          placeholder="password"
+          placeholder="Mot de passe"
           onChange={handleChange}
           id="password"
           className="border p-3 rounded-lg"
@@ -216,13 +219,13 @@ export default function Profile() {
           className="bg-slate-700 text-white rounded-lg
          p-3 uppercase hover:opacity-95 disabled:opacity-80"
         >
-          {loading ? "Loading..." : "Update"}
+          {loading ? "Chargement..." : "Mettre à jour"}
         </button>
         <Link
           className="bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95"
           to={"/create-listing"}
         >
-          Create Listing
+          Créer une annonce
         </Link>
       </form>
       <div className="flex justify-between mt-5">
@@ -230,26 +233,26 @@ export default function Profile() {
           onClick={handleDeleteUser}
           className="text-red-700 cursor-pointer"
         >
-          Delete account
+          Supprimer le compte
         </span>
         <span onClick={handleSignOut} className="text-red-700 cursor-pointer">
-          Sign out
+          Se déconnecter
         </span>
       </div>
       <p className="text-red-700 mt-5">{error ? error : ""}</p>
       <p className="text-green-700 mt-5">
-        {updateSuccess ? "User is updated succedssfully!" : ""}
+        {updateSuccess ? "L'utilisateur a été mis à jour avec succès!" : ""}
       </p>
       <button onClick={handleShowListings} className="text-green-700 w-full">
-        Show Listings
+        Afficher les annonces
       </button>
       <p className="text-red-700 mt-5">
-        {showListingsError ? "Error showing listings" : ""}
+        {showListingsError ? "Erreur lors de l'affichage des annonces" : ""}
       </p>
       {userListings && userListings.length > 0 && (
         <div className="flex flex-col gap-4">
           <h1 className="text-center mt-7 text-2xl font-semibold">
-            Your Listings
+            Vos annonces
           </h1>
           {userListings.map((listing) => (
             <div
@@ -275,10 +278,10 @@ export default function Profile() {
                   onClick={() => handleListingDelete(listing._id)}
                   className="text-red-700 uppercase"
                 >
-                  Delete
+                  Supprimer
                 </button>
                 <Link to={`/update-listing/${listing._id}`}>
-                  <button className="text-green-700 uppercase">Edit</button>
+                  <button className="text-green-700 uppercase">Modifier</button>
                 </Link>
               </div>
             </div>

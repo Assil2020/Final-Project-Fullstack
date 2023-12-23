@@ -134,12 +134,12 @@ export default function Search() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-8">
           <div className="flex items-center gap-2">
             <label className="whitespace-nowrap font-semibold">
-              Search Term:
+              Terme de recherche:
             </label>
             <input
               type="text"
               id="searchTerm"
-              placeholder="Search..."
+              placeholder="Recherche..."
               className="border rounded-lg p-3 w-full"
               value={sidebardata.searchTerm}
               onChange={handleChange}
@@ -155,7 +155,7 @@ export default function Search() {
                 onChange={handleChange}
                 checked={sidebardata.type === "all"}
               />
-              <span>Rent & Sale</span>
+              <span>Location et vente</span>
             </div>
             <div className="flex gap-2">
               <input
@@ -165,7 +165,7 @@ export default function Search() {
                 onChange={handleChange}
                 checked={sidebardata.type === "rent"}
               />
-              <span>Rent</span>
+              <span>Location</span>
             </div>
             <div className="flex gap-2">
               <input
@@ -175,7 +175,7 @@ export default function Search() {
                 onChange={handleChange}
                 checked={sidebardata.type === "sale"}
               />
-              <span>Sale</span>
+              <span>Vente</span>
             </div>
             <div className="flex gap-2">
               <input
@@ -185,11 +185,11 @@ export default function Search() {
                 onChange={handleChange}
                 checked={sidebardata.offer}
               />
-              <span>Offer</span>
+              <span>Réduction</span>
             </div>
           </div>
           <div className="flex gap-2 flex-wrap items-center">
-            <label className="font-semibold">Amenities:</label>
+            <label className="font-semibold">Agréments:</label>
             <div className="flex gap-2">
               <input
                 type="checkbox"
@@ -208,39 +208,41 @@ export default function Search() {
                 onChange={handleChange}
                 checked={sidebardata.furnished}
               />
-              <span>Furnished</span>
+              <span>Meublée</span>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <label className="font-semibold">Sort:</label>
+            <label className="font-semibold">Filtre:</label>
             <select
               onChange={handleChange}
               defaultValue={"created_at_desc"}
               id="sort_order"
               className="border rounded-lg p-3"
             >
-              <option value="regularPrice_desc">Price high to low</option>
-              <option value="regularPrice_asc">Price low to hight</option>
-              <option value="createdAt_desc">Latest</option>
-              <option value="createdAt_asc">Oldest</option>
+              <option value="regularPrice_desc">
+                Prix du haut vers le bas
+              </option>
+              <option value="regularPrice_asc">Prix elevé</option>
+              <option value="createdAt_desc">Le plus récent</option>
+              <option value="createdAt_asc">Le plus ancien</option>
             </select>
           </div>
           <button className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95">
-            Search
+            Recherche
           </button>
         </form>
       </div>
       <div className="flex-1">
         <h1 className="text-3xl font-semibold border-b p-3 text-slate-700 mt-5">
-          Listing results:
+          Résultats de l'annonce:
         </h1>
         <div className="p-7 flex flex-wrap gap-4">
           {!loading && listings.length === 0 && (
-            <p className="text-xl text-slate-700">No listing found!</p>
+            <p className="text-xl text-slate-700">Aucune annonce trouvée!</p>
           )}
           {loading && (
             <p className="text-xl text-slate-700 text-center w-full">
-              Loading...
+              Chargement...
             </p>
           )}
 
@@ -255,7 +257,7 @@ export default function Search() {
               onClick={onShowMoreClick}
               className="text-green-700 hover:underline p-7 text-center w-full"
             >
-              Show more
+              Afficher plus
             </button>
           )}
         </div>

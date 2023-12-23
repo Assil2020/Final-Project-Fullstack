@@ -44,7 +44,7 @@ export default function SignUp() {
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="text"
-          placeholder="username"
+          placeholder="Nom d'utilisateur"
           className="border p-3 rounded-lg"
           id="username"
           onChange={handleChange}
@@ -58,7 +58,7 @@ export default function SignUp() {
         />
         <input
           type="password"
-          placeholder="password"
+          placeholder="Mont de passe"
           className="border p-3 rounded-lg"
           id="password"
           onChange={handleChange}
@@ -67,13 +67,13 @@ export default function SignUp() {
           disabled={loading}
           className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
         >
-          {loading ? "Loading..." : "Sign Up"}
+          {loading ? "Chargement..." : "S'inscrire"}
         </button>
       </form>
       <div className="flex gap-2 mt-5">
-        <p>Have an account?</p>
+        <p>Avez-vous un compte?</p>
         <Link to={"/sign-in"}>
-          <span className="text-blue-700">Sign in</span>
+          <span className="text-blue-700">Se connecter</span>
         </Link>
       </div>
       {error && <p className="text-red-500 mt-5">{error}</p>}

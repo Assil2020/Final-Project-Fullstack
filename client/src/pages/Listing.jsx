@@ -16,8 +16,6 @@ import {
 } from "react-icons/fa";
 import Contact from "../components/Contact";
 
-// https://sabe.io/blog/javascript-format-numbers-commas#:~:text=The%20best%20way%20to%20format,format%20the%20number%20with%20commas.
-
 export default function Listing() {
   SwiperCore.use([Navigation]);
   const [listing, setListing] = useState(null);
@@ -52,9 +50,9 @@ export default function Listing() {
 
   return (
     <main>
-      {loading && <p className="text-center my-7 text-2xl">Loading...</p>}
+      {loading && <p className="text-center my-7 text-2xl">Chargement...</p>}
       {error && (
-        <p className="text-center my-7 text-2xl">Something went wrong!</p>
+        <p className="text-center my-7 text-2xl">Une erreur s'est produite!</p>
       )}
       {listing && !loading && !error && (
         <div>
@@ -90,10 +88,11 @@ export default function Listing() {
           )}
           <div className="flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4">
             <p className="text-2xl font-semibold">
-              {listing.name} - DA{" "}
+              {listing.name} -{" "}
               {listing.offer
                 ? listing.discountPrice.toLocaleString("en-US")
                 : listing.regularPrice.toLocaleString("en-US")}
+              DA
               {listing.type === "rent" && " / month"}
             </p>
             <p className="flex items-center mt-6 gap-2 text-slate-600  text-sm">
@@ -102,11 +101,11 @@ export default function Listing() {
             </p>
             <div className="flex gap-4">
               <p className="bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
-                {listing.type === "rent" ? "For Rent" : "For Sale"}
+                {listing.type === "rent" ? "À louer" : "À vendre"}
               </p>
               {listing.offer && (
                 <p className="bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md">
-                  DA {+listing.regularPrice - +listing.discountPrice} OFF
+                  {+listing.regularPrice - +listing.discountPrice} DA de Remise
                 </p>
               )}
             </div>
@@ -118,22 +117,24 @@ export default function Listing() {
               <li className="flex items-center gap-1 whitespace-nowrap ">
                 <FaBed className="text-lg" />
                 {listing.bedrooms > 1
-                  ? `${listing.bedrooms} beds `
-                  : `${listing.bedrooms} bed `}
+                  ? `${listing.bedrooms} Chambres `
+                  : `${listing.bedrooms} Chambre `}
               </li>
               <li className="flex items-center gap-1 whitespace-nowrap ">
                 <FaBath className="text-lg" />
                 {listing.bathrooms > 1
-                  ? `${listing.bathrooms} baths `
-                  : `${listing.bathrooms} bath `}
+                  ? `${listing.bathrooms} Salles de bains `
+                  : `${listing.bathrooms} Salle de bain `}
               </li>
               <li className="flex items-center gap-1 whitespace-nowrap ">
                 <FaParking className="text-lg" />
-                {listing.parking ? "Parking spot" : "No Parking"}
+                {listing.parking
+                  ? "Place de stationnement"
+                  : "Pas de stationnement"}
               </li>
               <li className="flex items-center gap-1 whitespace-nowrap ">
                 <FaChair className="text-lg" />
-                {listing.furnished ? "Furnished" : "Unfurnished"}
+                {listing.furnished ? "Meublé" : "Non meublé"}
               </li>
             </ul>
             {currentUser && listing.userRef !== currentUser._id && !contact && (
@@ -141,7 +142,7 @@ export default function Listing() {
                 onClick={() => setContact(true)}
                 className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
               >
-                Contact landlord
+                Contacter le propriétaire
               </button>
             )}
             {contact && <Contact listing={listing} />}

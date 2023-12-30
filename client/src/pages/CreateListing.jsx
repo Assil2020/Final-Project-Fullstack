@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   getDownloadURL,
   getStorage,
@@ -18,19 +18,26 @@ export default function CreateListing() {
     name: "",
     description: "",
     address: "",
-    type: "rent",
-    bedrooms: 1,
-    bathrooms: 1,
+    type: "sale",
+    seats: 5,
+    doors: 4,
     regularPrice: 5000,
     discountPrice: 0,
     offer: false,
-    parking: false,
-    furnished: false,
+    transmission: "Manuelle",
+    fuelType: "Essence",
+    year: "2020",
+    mileage: "10000",
+    color: "Bleu",
+    brand: "",
+    model: "",
   });
   const [imageUploadError, setImageUploadError] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [carModels, setCarModels] = useState([]);
   console.log(formData);
   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
@@ -104,14 +111,59 @@ export default function CreateListing() {
       });
     }
 
-    if (
-      e.target.id === "parking" ||
-      e.target.id === "furnished" ||
-      e.target.id === "offer"
-    ) {
+    if (e.target.id === "offer") {
       setFormData({
         ...formData,
         [e.target.id]: e.target.checked,
+      });
+    }
+
+    if (e.target.id === "fuelType") {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value,
+      });
+    }
+
+    if (e.target.id === "transmission") {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value,
+      });
+    }
+
+    if (e.target.id === "year") {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value,
+      });
+    }
+
+    if (e.target.id === "mileage") {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value,
+      });
+    }
+
+    if (e.target.id === "color") {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value,
+      });
+    }
+
+    if (e.target.id === "brand") {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value,
+      });
+    }
+
+    if (e.target.id === "model") {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value,
       });
     }
 
@@ -125,6 +177,9 @@ export default function CreateListing() {
         [e.target.id]: e.target.value,
       });
     }
+
+    console.log("Brand value after change:", formData.brand);
+    console.log("Model value after change:", formData.model);
   };
 
   const handleSubmit = async (e) => {
@@ -157,9 +212,166 @@ export default function CreateListing() {
       setLoading(false);
     }
   };
+
+  const carModelsData = useMemo(() => {
+    return {
+      Acura: ["INTEGRA", "TLX", "RDX", "MDX"],
+      "Alfa Romeo": ["TONALE", "GIULIA", "STELVIO"],
+      "Aston Martin": ["Db11", "Db12", "Dbs", "Dbx"],
+      Audi: [
+        "A3",
+        "A4",
+        "A5",
+        "A6",
+        "A7",
+        "A8",
+        "Q2",
+        "Q3",
+        "Q4 e-tron",
+        "Q5",
+        "Q7",
+        "Q8",
+        "TT",
+        "R8",
+      ],
+      Bentley: ["Bentayga", "Continental", "Flying Spur"],
+      BMW: [
+        "X1",
+        "X3",
+        "X5",
+        "2 Series",
+        "4 Series",
+        "5 Series",
+        "6 Series",
+        "7 Series",
+        "8 Series",
+        "Z4",
+        "i3",
+        "i4",
+        "iX",
+        "iX3",
+        "M2",
+        "M3",
+        "M4",
+        "M5",
+        "M8",
+        "X3 M",
+        "X4 M",
+        "X5 M",
+        "X6 M",
+      ],
+      Bugatti: ["Chiron", "Veyron", "Divo"],
+      Cadillac: ["Escalade", "XT4", "XT5"],
+      Chevrolet: [
+        "Camaro",
+        "Silverado",
+        "Tahoe",
+        "Suburban",
+        "Corvette",
+        "Blazer",
+      ],
+      Chrysler: ["300"],
+      Dodge: ["Charger", "Durango", "Challenger", "Durango SRT"],
+      Ferrari: [
+        "488",
+        "F8 Tributo",
+        "Portofino",
+        "Roma",
+        "296 GTB",
+        "SF90 Stradale",
+        "812 Superfast",
+      ],
+      Ford: [
+        "Mustang",
+        "Bronco",
+        "Bronco Sport",
+        "Maverick",
+        "Edge",
+        "Explorer",
+        "Expedition",
+        "F-150",
+        "Super Duty",
+        "Mustang Mach-E",
+      ],
+      Genesis: [
+        "G70",
+        "G80",
+        "GV80",
+        "G90",
+        "GV60",
+        "GV70",
+        "GV80 Electrified",
+      ],
+      Jaguar: ["F-PACE", "XE", "I-PACE", "F-TYPE", "XF", "E-PACE"],
+      Jeep: [
+        "Cherokee",
+        "Grand Cherokee",
+        "Wrangler",
+        "Gladiator",
+        "Wagoneer",
+        "Grand Wagoneer",
+      ],
+      Kia: ["Seltos", "Sportage", "Telluride"],
+      Lamborghini: ["Aventador", "Huracán", "Urus"],
+      "Land Rover": ["Defender", "Discovery", "Range Rover", "Velar", "Evoque"],
+      Lexus: ["ES", "RX", "NX", "IS", "LC", "RC", "UX", "GX", "LX"],
+      Lincoln: [
+        "Aviator",
+        "Corsair",
+        "Navigator",
+        "MKZ",
+        "Nautilus",
+        "Aviator Grand Touring",
+      ],
+      Lotus: ["Evora", "Exige", "Elise"],
+      Maserati: ["Ghibli", "Levante", "Quattroporte", "MC20"],
+      McLaren: ["570S", "720S", "Artura"],
+      "Mercedes-Benz": [
+        "C-Class",
+        "E-Class",
+        "S-Class",
+        "GLA",
+        "GLB",
+        "GLC",
+        "GLE",
+        "GLS",
+        "G-Class",
+        "SL",
+        "SLC",
+        "AMG GT",
+        "EQS",
+        "EQE",
+        "EQB",
+        "EQV",
+      ],
+      Porsche: [
+        "911",
+        "Cayenne",
+        "Panamera",
+        "Taycan",
+        "718 Cayman",
+        "718 Boxster",
+        "Macan",
+      ],
+      "Rolls-Royce": ["Phantom", "Ghost", "Cullinan"],
+      Tesla: ["Model 3", "Model S", "Model X"],
+    };
+  }, []);
+
+  useEffect(() => {
+    setCarModels(carModelsData[selectedBrand] || []);
+
+    if (!formData.model && selectedBrand && carModelsData[selectedBrand]) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        model: carModelsData[selectedBrand][0] || "",
+      }));
+    }
+  }, [selectedBrand, carModelsData, formData]);
+
   return (
     <main className="p-3 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-semibold text-center my-7">
+      <h1 className="text-slate-100 text-3xl font-semibold text-center my-7">
         Créer une annonce
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
@@ -193,7 +405,7 @@ export default function CreateListing() {
             onChange={handleChange}
             value={formData.address}
           />
-          <div className="flex gap-6 flex-wrap">
+          <div className="text-slate-100 flex gap-6 flex-wrap">
             <div className="flex gap-2">
               <input
                 type="checkbox"
@@ -217,113 +429,260 @@ export default function CreateListing() {
             <div className="flex gap-2">
               <input
                 type="checkbox"
-                id="parking"
-                className="w-5"
-                onChange={handleChange}
-                checked={formData.parking}
-              />
-              <span>Place de stationnement</span>
-            </div>
-            <div className="flex gap-2">
-              <input
-                type="checkbox"
-                id="furnished"
-                className="w-5"
-                onChange={handleChange}
-                checked={formData.furnished}
-              />
-              <span>Meublée</span>
-            </div>
-            <div className="flex gap-2">
-              <input
-                type="checkbox"
                 id="offer"
                 className="w-5"
                 onChange={handleChange}
                 checked={formData.offer}
               />
-              <span>Offre</span>
+              <span>Réduction</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <label htmlFor="brand">Marque de voiture : </label>
+              <select
+                id="brand"
+                required
+                className="text-black p-3 border border-gray-300 rounded-lg"
+                onChange={(e) => {
+                  setSelectedBrand(e.target.value);
+                  setFormData({
+                    ...formData,
+                    brand: e.target.value,
+                  });
+                }}
+                value={formData.brand}
+              >
+                <option value="" disabled>
+                  Sélectionner une Marque
+                </option>
+                <option value="Acura">Acura</option>
+                <option value="Alfa Romeo">Alfa Romeo</option>
+                <option value="Aston Martin">Aston Martin</option>
+                <option value="Audi">Audi</option>
+                <option value="Bentley">Bentley</option>
+                <option value="BMW">BMW</option>
+                <option value="Bugatti">Bugatti</option>
+                <option value="Cadillac">Cadillac</option>
+                <option value="Chevrolet">Chevrolet</option>
+                <option value="Chrysler">Chrysler</option>
+                <option value="Dodge">Dodge</option>
+                <option value="Ferrari">Ferrari</option>
+                <option value="Ford">Ford</option>
+                <option value="Genesis">Genesis</option>
+                <option value="Jaguar">Jaguar</option>
+                <option value="Jeep">Jeep</option>
+                <option value="Kia">Kia</option>
+                <option value="Lamborghini">Lamborghini</option>
+                <option value="Land Rover">Land Rover</option>
+                <option value="Lexus">Lexus</option>
+                <option value="Lincoln">Lincoln</option>
+                <option value="Lotus">Lotus</option>
+                <option value="Maserati">Maserati</option>
+                <option value="McLaren">McLaren</option>
+                <option value="Mercedes-Benz">Mercedes-Benz</option>
+                <option value="Porsche">Porsche</option>
+                <option value="Rolls-Royce">Rolls-Royce</option>
+                <option value="Tesla">Tesla</option>
+              </select>
+            </div>
+            <div className="flex items-center gap-2">
+              <label htmlFor="model">Modèle de voiture : </label>
+              <select
+                id="model"
+                required
+                className="text-black p-3 border border-gray-300 rounded-lg"
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    model: e.target.value,
+                  });
+                }}
+                value={formData.model}
+              >
+                <option value="" disabled>
+                  Sélectionner un modèle
+                </option>
+                {carModels.map((model) => (
+                  <option key={model} value={model}>
+                    {model}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="flex items-center gap-2">
+              <p>Année de mise en circulation: </p>
+              <input
+                type="text"
+                id="year"
+                minLength="4"
+                maxLength="4"
+                pattern="\d{4}"
+                placeholder="YYYY"
+                required
+                className="text-black p-3 border border-gray-300 rounded-lg"
+                onChange={handleChange}
+                value={formData.year}
+              />
+            </div>
+            {/* <div className="flex items-center gap-2">
+              <p>Kilométrage: </p>
+              <input
+                type="text"
+                id="mileage"
+                minLength="1"
+                maxLength="3000000"
+                placeholder="Kilométrage"
+                required
+                className="p-3 border border-gray-300 rounded-lg"
+                onChange={handleChange}
+                value={formData.mileage}
+              />
+              <span className="ml-2">KM</span>
+            </div> */}
+            <div className="flex items-center gap-2">
+              <p>Kilométrage: </p>
+              <input
+                type="number"
+                id="mileage"
+                min="1"
+                max="10000000"
+                required
+                className="text-black p-3 border border-gray-300 rounded-lg"
+                onChange={handleChange}
+                value={formData.mileage}
+              />
+              <span className="ml-2">KM</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <label htmlFor="fuelType">Type de carburant: </label>
+              <select
+                id="fuelType"
+                required
+                className="text-black p-3 border border-gray-300 rounded-lg"
+                onChange={handleChange}
+                value={formData.fuelType}
+              >
+                <option value="Essence">Essence</option>
+                <option value="GasOil">Gas-oil</option>
+                <option value="Electrique">Electrique</option>
+                <option value="Hybride">Hybride</option>
+              </select>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <label htmlFor="transmission">Transmission: </label>
+              <select
+                id="transmission"
+                required
+                className="text-black p-3 border border-gray-300 rounded-lg"
+                onChange={handleChange}
+                value={formData.transmission}
+              >
+                <option value="Manuelle">Manuelle</option>
+                <option value="Automatique">Automatique</option>
+              </select>
             </div>
           </div>
           <div className="flex flex-wrap gap-6">
-            <div className="flex items-center gap-2">
+            <div className="text-slate-100 flex items-center gap-2">
+              <p>Sièges: </p>
               <input
                 type="number"
-                id="bedrooms"
-                min="1"
-                max="10"
+                id="seats"
+                min="2"
+                max="7"
                 required
-                className="p-3 border border-gray-300 rounded-lg"
+                className="text-black p-3 border border-gray-300 rounded-lg"
                 onChange={handleChange}
-                value={formData.bedrooms}
+                value={formData.seats}
               />
-              <p>Chambres</p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="text-slate-100 flex items-center gap-2">
+              <p>Portes: </p>
               <input
                 type="number"
-                id="bathrooms"
-                min="1"
-                max="10"
+                id="doors"
+                min="2"
+                max="5"
                 required
-                className="p-3 border border-gray-300 rounded-lg"
+                className="text-black p-3 border border-gray-300 rounded-lg"
                 onChange={handleChange}
-                value={formData.bathrooms}
+                value={formData.doors}
               />
-              <p>Salle de bain</p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="text-slate-100 flex items-center gap-2">
+              <label htmlFor="color">Couleur: </label>
+              <select
+                id="color"
+                required
+                className="text-black p-3 border border-gray-300 rounded-lg"
+                onChange={handleChange}
+                value={formData.color}
+              >
+                <option value="Bleu">Bleu</option>
+                <option value="Rouge">Rouge</option>
+                <option value="Vert">Vert</option>
+                <option value="Noir">Noir</option>
+                <option value="Blanc">Blanc</option>
+                <option value="Argent">Argent</option>
+                <option value="Gris">Gris</option>
+                <option value="Jaune">Jaune</option>
+                <option value="Orange">Orange</option>
+                <option value="Marron">Marron</option>
+                <option value="Rose">Rose</option>
+                <option value="Violet">Violet</option>
+              </select>
+            </div>
+            <div className="text-slate-100 flex items-center gap-2">
+              <p>Prix final: </p>
               <input
                 type="number"
                 id="regularPrice"
                 min="50"
-                max="10000000"
+                max="1000000000"
                 required
-                className="p-3 border border-gray-300 rounded-lg"
+                className="text-black p-3 border border-gray-300 rounded-lg"
                 onChange={handleChange}
                 value={formData.regularPrice}
               />
               <div className="flex flex-col items-center">
-                <p>Prix</p>
                 {formData.type === "rent" && (
-                  <span className="text-xs">(DA / mois)</span>
+                  <span className="text-xs">(DA / jour)</span>
                 )}
               </div>
             </div>
             {formData.offer && (
-              <div className="flex items-center gap-2">
+              <div className="text-slate-100 flex items-center gap-2">
+                <p>Prix avec réduction: </p>
                 <input
                   type="number"
                   id="discountPrice"
                   min="0"
                   max="10000000"
                   required
-                  className="p-3 border border-gray-300 rounded-lg"
+                  className="text-black p-3 border border-gray-300 rounded-lg"
                   onChange={handleChange}
                   value={formData.discountPrice}
                 />
                 <div className="flex flex-col items-center">
-                  <p>Réduction</p>
-
                   {formData.type === "rent" && (
-                    <span className="text-xs">(DA / mois)</span>
+                    <span className="text-xs">(DA / jour)</span>
                   )}
                 </div>
               </div>
             )}
           </div>
         </div>
-        <div className="flex flex-col flex-1 gap-4">
+        <div className="text-slate-100 flex flex-col flex-1 gap-4">
           <p className="font-semibold">
             Images:
-            <span className="font-normal text-gray-600 ml-2">
+            <span className="font-normal text-gray-400 ml-2">
               La première image sera la couverture (max 6)
             </span>
           </p>
           <div className="flex gap-4">
             <input
               onChange={(e) => setFiles(e.target.files)}
-              className="p-3 border border-gray-300 rounded w-full"
+              className="text-white p-3 border border-gray-300 rounded w-full"
               type="file"
               id="images"
               accept="image/*"

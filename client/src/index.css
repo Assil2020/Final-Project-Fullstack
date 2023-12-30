@@ -3,5 +3,15 @@
 @tailwind utilities;
 
 body{
-    background-color: rgb(241, 245, 241)
+    background-color: black;
+ background-image: url('https://img.freepik.com/free-photo/sports-car-races-through-dark-blurred-motion-generative-ai_188544-12490.jpg?w=2000&t=st=1703972353~exp=1703972953~hmac=2d16f7dcec1b93eb614917abe50925794961b5893a8ab3e604e7cc49577ebdff');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+
+
+
+
 }

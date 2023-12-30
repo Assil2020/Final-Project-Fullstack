@@ -243,7 +243,10 @@ export default function Profile() {
       <p className="text-green-700 mt-5">
         {updateSuccess ? "L'utilisateur a été mis à jour avec succès!" : ""}
       </p>
-      <button onClick={handleShowListings} className="text-green-700 w-full">
+      <button
+        onClick={handleShowListings}
+        className="text-green-500 w-full text-2xl"
+      >
         Afficher les annonces
       </button>
       <p className="text-red-700 mt-5">
@@ -251,13 +254,13 @@ export default function Profile() {
       </p>
       {userListings && userListings.length > 0 && (
         <div className="flex flex-col gap-4">
-          <h1 className="text-center mt-7 text-2xl font-semibold">
+          <h1 className="text-slate-100 text-center mt-7 text-2xl font-semibold">
             Vos annonces
           </h1>
           {userListings.map((listing) => (
             <div
               key={listing._id}
-              className="border rounded-lg p-3 flex justify-between items-center gap-4"
+              className="border rounded-lg p-3 flex justify-between items-center gap-4 bg-slate-700"
             >
               <Link to={`/listing/${listing._id}`}>
                 <img
@@ -267,7 +270,7 @@ export default function Profile() {
                 />
               </Link>
               <Link
-                className="text-slate-700 font-semibold  hover:underline truncate flex-1"
+                className="text-slate-200 font-semibold  hover:underline truncate flex-1"
                 to={`/listing/${listing._id}`}
               >
                 <p>{listing.name}</p>
@@ -281,7 +284,7 @@ export default function Profile() {
                   Supprimer
                 </button>
                 <Link to={`/update-listing/${listing._id}`}>
-                  <button className="text-green-700 uppercase">Modifier</button>
+                  <button className="text-green-400 uppercase">Modifier</button>
                 </Link>
               </div>
             </div>

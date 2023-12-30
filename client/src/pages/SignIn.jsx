@@ -48,7 +48,7 @@ export default function SignIn() {
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="email"
-          placeholder="email"
+          placeholder="Email"
           className="border p-3 rounded-lg"
           id="email"
           onChange={handleChange}
@@ -68,10 +68,10 @@ export default function SignIn() {
         </button>
         <OAuth />
       </form>
-      <div className="flex gap-2 mt-5">
+      <div className="text-slate-100 flex gap-2 mt-5">
         <p>Vous n'avez pas de compte ?</p>
         <Link to={"/sign-up"}>
-          <span className="text-blue-700">S'inscrire</span>
+          <span className="text-green-700">S'inscrire</span>
         </Link>
       </div>
       {error && <p className="text-red-500 mt-5">{error}</p>}

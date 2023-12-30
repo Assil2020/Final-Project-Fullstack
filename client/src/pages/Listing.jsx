@@ -5,15 +5,16 @@ import SwiperCore from "swiper";
 import { useSelector } from "react-redux";
 import { Navigation } from "swiper/modules";
 import "swiper/css/bundle";
+import { FaMapMarkerAlt, FaShare, FaCar } from "react-icons/fa";
+import { MdOutlineAirlineSeatReclineExtra } from "react-icons/md";
+import { GiSteelDoor } from "react-icons/gi";
+import { TbManualGearbox } from "react-icons/tb";
 import {
-  FaBath,
-  FaBed,
-  FaChair,
-  FaMapMarkedAlt,
-  FaMapMarkerAlt,
-  FaParking,
-  FaShare,
-} from "react-icons/fa";
+  BsFillFuelPumpDieselFill,
+  BsCalendarDateFill,
+  BsSpeedometer,
+} from "react-icons/bs";
+import { IoIosColorFill } from "react-icons/io";
 import Contact from "../components/Contact";
 
 export default function Listing() {
@@ -48,8 +49,19 @@ export default function Listing() {
     fetchListing();
   }, [params.listingId]);
 
+  const formatPriceWithSpaces = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  };
+
   return (
-    <main>
+    <main
+      className="bg-black"
+      style={{
+        backgroundImage:
+          "url('https://www.freepik.com/free-photo/grunge-abstract-metal-background_4007400.htm#query=car%20background&position=5&from_view=keyword&track=ais&uuid=b088e1d9-58ff-421f-985b-722ac7fefd67')",
+        backgroundAttachment: "fixed",
+      }}
+    >
       {loading && <p className="text-center my-7 text-2xl">Chargement...</p>}
       {error && (
         <p className="text-center my-7 text-2xl">Une erreur s'est produite!</p>
@@ -90,13 +102,13 @@ export default function Listing() {
             <p className="text-2xl font-semibold">
               {listing.name} -{" "}
               {listing.offer
-                ? listing.discountPrice.toLocaleString("en-US")
-                : listing.regularPrice.toLocaleString("en-US")}
-              DA
-              {listing.type === "rent" && " / month"}
+                ? `${formatPriceWithSpaces(listing.discountPrice)} DA`
+                : `${formatPriceWithSpaces(listing.regularPrice)} DA`}
+              {listing.type === "rent" && " / jour"}
             </p>
+
             <p className="flex items-center mt-6 gap-2 text-slate-600  text-sm">
-              <FaMapMarkerAlt className="text-green-700" />
+              <FaMapMarkerAlt className="text-green-900" />
               {listing.address}
             </p>
             <div className="flex gap-4">
@@ -114,28 +126,149 @@ export default function Listing() {
               {listing.description}
             </p>
             <ul className="text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6">
-              <li className="flex items-center gap-1 whitespace-nowrap ">
-                <FaBed className="text-lg" />
-                {listing.bedrooms > 1
-                  ? `${listing.bedrooms} Chambres `
-                  : `${listing.bedrooms} Chambre `}
-              </li>
-              <li className="flex items-center gap-1 whitespace-nowrap ">
-                <FaBath className="text-lg" />
-                {listing.bathrooms > 1
-                  ? `${listing.bathrooms} Salles de bains `
-                  : `${listing.bathrooms} Salle de bain `}
-              </li>
-              <li className="flex items-center gap-1 whitespace-nowrap ">
-                <FaParking className="text-lg" />
-                {listing.parking
-                  ? "Place de stationnement"
-                  : "Pas de stationnement"}
-              </li>
-              <li className="flex items-center gap-1 whitespace-nowrap ">
-                <FaChair className="text-lg" />
-                {listing.furnished ? "Meublé" : "Non meublé"}
-              </li>
+              {listing.seats && (
+                <li className="flex items-center gap-1 whitespace-nowrap ">
+                  <MdOutlineAirlineSeatReclineExtra className="text-lg" />
+                  {listing.seats > 1
+                    ? `${listing.seats} Sièges `
+                    : `${listing.seats} Siège `}
+                </li>
+              )}
+              {listing.doors && (
+                <li className="flex items-center gap-1 whitespace-nowrap ">
+                  <GiSteelDoor className="text-lg" />
+                  {listing.doors > 1
+                    ? `${listing.doors} Portes `
+                    : `${listing.doors} Porte `}
+                </li>
+              )}
+              {listing.fuelType && (
+                <li className="flex items-center gap-1 whitespace-nowrap ">
+                  <BsFillFuelPumpDieselFill className="text-lg" />
+                  {listing.fuelType === "Essence"
+                    ? "Essence"
+                    : listing.fuelType === "GasOil"
+                    ? "GasOil"
+                    : listing.fuelType === "Electrique"
+                    ? "Electrique"
+                    : "Hybride"}
+                </li>
+              )}
+              {listing.transmission && (
+                <li className="flex items-center gap-1 whitespace-nowrap">
+                  <TbManualGearbox className="text-lg" />
+                  {listing.transmission.toLowerCase() === "manuelle"
+                    ? "Manuelle"
+                    : listing.transmission.toLowerCase() === "automatique"
+                    ? "Automatique"
+                    : "Autre"}
+                </li>
+              )}
+              {listing.transmission && (
+                <li className="flex items-center gap-1 whitespace-nowrap">
+                  <IoIosColorFill className="text-lg" />
+                  {listing.color.toLowerCase() === "bleu"
+                    ? "Bleu"
+                    : listing.color.toLowerCase() === "rouge"
+                    ? "Rouge"
+                    : listing.color.toLowerCase() === "vert"
+                    ? "Vert"
+                    : listing.color.toLowerCase() === "noir"
+                    ? "Noir"
+                    : listing.color.toLowerCase() === "blanc"
+                    ? "Blanc"
+                    : listing.color.toLowerCase() === "argent"
+                    ? "Argent"
+                    : listing.color.toLowerCase() === "gris"
+                    ? "Gris"
+                    : listing.color.toLowerCase() === "jaune"
+                    ? "Jaune"
+                    : listing.color.toLowerCase() === "orange"
+                    ? "Orange"
+                    : listing.color.toLowerCase() === "marron"
+                    ? "Marron"
+                    : listing.color.toLowerCase() === "rose"
+                    ? "Rose"
+                    : listing.color.toLowerCase() === "violet"
+                    ? "Violet"
+                    : "Autre"}
+                </li>
+              )}
+              {listing.transmission && (
+                <li className="flex items-center gap-1 whitespace-nowrap">
+                  <FaCar className="text-lg" />
+                  {listing.brand === "acura"
+                    ? "Acura"
+                    : listing.brand.toLowerCase() === "alfa romeo"
+                    ? "Alfa Romeo"
+                    : listing.brand.toLowerCase() === "aston martin"
+                    ? "Aston Martin"
+                    : listing.brand.toLowerCase() === "audi"
+                    ? "Audi"
+                    : listing.brand.toLowerCase() === "bentley"
+                    ? "Bentley"
+                    : listing.brand.toLowerCase() === "bmw"
+                    ? "BMW"
+                    : listing.brand.toLowerCase() === "bugatti"
+                    ? "Bugatti"
+                    : listing.brand.toLowerCase() === "cadillac"
+                    ? "Cadillac"
+                    : listing.brand.toLowerCase() === "chevrolet"
+                    ? "Chevrolet"
+                    : listing.brand.toLowerCase() === "chrysler"
+                    ? "Chrysler"
+                    : listing.brand.toLowerCase() === "dodge"
+                    ? "Dodge"
+                    : listing.brand.toLowerCase() === "ferrari"
+                    ? "Ferrari"
+                    : listing.brand.toLowerCase() === "ford"
+                    ? "Ford"
+                    : listing.brand.toLowerCase() === "genesis"
+                    ? "Genesis"
+                    : listing.brand.toLowerCase() === "jaguar"
+                    ? "Jaguar"
+                    : listing.brand.toLowerCase() === "jeep"
+                    ? "Jeep"
+                    : listing.brand.toLowerCase() === "kia"
+                    ? "Kia"
+                    : listing.brand.toLowerCase() === "lamborghini"
+                    ? "Lamborghini"
+                    : listing.brand.toLowerCase() === "land rover"
+                    ? "Land Rover"
+                    : listing.brand.toLowerCase() === "lexus"
+                    ? "Lexus"
+                    : listing.brand.toLowerCase() === "lincoln"
+                    ? "Lincoln"
+                    : listing.brand.toLowerCase() === "lotus"
+                    ? "Lotus"
+                    : listing.brand.toLowerCase() === "maserati"
+                    ? "Maserati"
+                    : listing.brand.toLowerCase() === "mcLaren"
+                    ? "McLaren"
+                    : listing.brand.toLowerCase() === "mercedes-benz"
+                    ? "Mercedes-Benz"
+                    : listing.brand.toLowerCase() === "porsche"
+                    ? "Porsche"
+                    : listing.brand.toLowerCase() === "rolls-royce"
+                    ? "Rolls-Royce"
+                    : listing.brand.toLowerCase() === "tesla"
+                    ? "Tesla"
+                    : "Autre"}
+                </li>
+              )}
+
+              {listing.year && (
+                <li className="flex items-center gap-2">
+                  <BsCalendarDateFill className="text-green-700" />
+                  <span>{listing.year}</span>
+                </li>
+              )}
+              {listing.mileage && (
+                <li className="flex items-center gap-2">
+                  <BsSpeedometer className="text-green-700" />
+                  <span>{listing.mileage} km</span>
+                </li>
+              )}
             </ul>
             {currentUser && listing.userRef !== currentUser._id && !contact && (
               <button

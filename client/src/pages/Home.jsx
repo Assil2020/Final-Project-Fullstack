@@ -46,24 +46,31 @@ export default function Home() {
     fetchOfferListings();
   }, []);
   return (
-    <div>
+    <div
+      className="bg-black"
+      style={{
+        backgroundImage:
+          "url('https://img.freepik.com/free-photo/sports-car-races-through-dark-blurred-motion-generative-ai_188544-12490.jpg?w=2000&t=st=1703972353~exp=1703972953~hmac=2d16f7dcec1b93eb614917abe50925794961b5893a8ab3e604e7cc49577ebdff')",
+        backgroundAttachment: "fixed",
+      }}
+    >
       {/* top */}
       <div className="flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto">
-        <h1 className="text-slate-700 font-bold text-3xl lg:text-6xl">
-          Trouvez votre prochain <span className="text-slate-500">endroit</span>
+        <h1 className="text-gray-200 font-bold text-3xl lg:text-6xl">
+          Trouvez votre prochain <span className="text-red-700">véhicule</span>
           <br />
           parfait
         </h1>
-        <div className="text-gray-400 text-xs sm:text-sm">
-          AssilMob est le meilleur endroit pour trouver votre prochain endroit
-          idéal en ligne.
+        <div className="text-slate-100 text-xs sm:text-xl">
+          <span className="text-red-700">AssilAuto</span> est le meilleur
+          endroit pour trouver votre prochain véhicule en ligne.
           <br />
-          Nous mettons à votre disposition une vaste sélection de propriétés,
+          Nous mettons à votre disposition une vaste sélection de véhicule,
           parmi lesquelles vous pouvez faire votre choix.
         </div>
         <Link
           to={"/search"}
-          className="text-xs sm:text-sm text-blue-800 font-bold hover:underline"
+          className="text-xl sm:text-xl text-green-700 font-bold hover:underline"
         >
           Commençons...
         </Link>
@@ -92,11 +99,11 @@ export default function Home() {
         {offerListings && offerListings.length > 0 && (
           <div className="">
             <div className="my-3">
-              <h2 className="text-2xl font-semibold text-slate-600">
+              <h2 className="text-5xl font-semibold text-gray-200">
                 Offres récentes
               </h2>
               <Link
-                className="text-sm text-blue-800 hover:underline"
+                className="text-xl text-green-700 hover:underline"
                 to={"/search?offer=true"}
               >
                 Afficher plus d'offres
@@ -112,14 +119,14 @@ export default function Home() {
         {rentListings && rentListings.length > 0 && (
           <div className="">
             <div className="my-3">
-              <h2 className="text-2xl font-semibold text-slate-600">
-                Lieux récents à louer
+              <h2 className="text-5xl font-semibold text-gray-200">
+                Voitures récentes à louer
               </h2>
               <Link
-                className="text-sm text-blue-800 hover:underline"
+                className="text-xl text-green-700 hover:underline"
                 to={"/search?type=rent"}
               >
-                Afficher plus de logements à louer
+                Afficher plus de véhicule à louer
               </Link>
             </div>
             <div className="flex flex-wrap gap-4">
@@ -132,14 +139,14 @@ export default function Home() {
         {saleListings && saleListings.length > 0 && (
           <div className="">
             <div className="my-3">
-              <h2 className="text-2xl font-semibold text-slate-600">
-                Places récentes à vendre
+              <h2 className="text-5xl font-semibold text-gray-200">
+                Véhicules récents à vendre
               </h2>
               <Link
-                className="text-sm text-blue-800 hover:underline"
+                className="text-xl text-green-700 hover:underline"
                 to={"/search?type=sale"}
               >
-                Afficher plus de lieux à vendre
+                Afficher plus de voitures à vendre
               </Link>
             </div>
             <div className="flex flex-wrap gap-4">

@@ -1,0 +1,20 @@
+.text-slate-100 {
+  display: flex;
+}
+
+.p-7 {
+  flex: 1;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.flex-1 {
+  flex: 1;
+  overflow-y: auto;
+}

@@ -22,23 +22,43 @@ const listingSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    bathrooms: {
+    brand: {
+      type: String,
+      required: true,
+    },
+    model: {
+      type: String,
+      required: true,
+    },
+    seats: {
       type: Number,
       required: true,
     },
-    bedrooms: {
+    doors: {
       type: Number,
       required: true,
     },
-    furnished: {
-      type: Boolean,
+    transmission: {
+      type: String,
       required: true,
     },
-    parking: {
-      type: Boolean,
+    fuelType: {
+      type: String,
+      required: true,
+    },
+    year: {
+      type: Number,
+      required: true,
+    },
+    mileage: {
+      type: Number,
       required: true,
     },
     type: {
+      type: String,
+      required: true,
+    },
+    color: {
       type: String,
       required: true,
     },

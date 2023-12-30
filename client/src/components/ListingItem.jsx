@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
 import PropTypes from "prop-types";
 export default function ListingItem({ listing }) {
+  const formatPriceWithSpaces = (price) => {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  };
+
   return (
     <div className="bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[330px]">
       <Link to={`/listing/${listing._id}`}>
@@ -14,36 +18,48 @@ export default function ListingItem({ listing }) {
           className="h-[320px] sm:h-[220px] w-full object-cover hover:scale-105 transition-scale duration-300"
         />
         <div className="p-3 flex flex-col gap-2 w-full">
-          <p className="truncate text-lg font-semibold text-slate-700">
+          <p className="truncate text-lg font-semibold text-red-700">
             {listing.name}
           </p>
           <div className="flex items-center gap-1">
             <MdLocationOn className="h-4 w-4 text-green-700" />
-            <p className="text-sm text-gray-600 truncate w-full">
+            <p className="text-sm text-black truncate w-full">
               {listing.address}
             </p>
           </div>
-          <p className="text-sm text-gray-600 line-clamp-2">
+          <p className="text-sm text-black line-clamp-2">
             {listing.description}
           </p>
-          <p className="text-slate-500 mt-2 font-semibold ">
+          <p className="text-red-700 mt-2 font-semibold ">
             {listing.offer
-              ? listing.discountPrice.toLocaleString("en-US")
-              : listing.regularPrice.toLocaleString("en-US")}
-            {listing.type === "rent" && " DA / mois"}
+              ? `${formatPriceWithSpaces(listing.discountPrice)} DA`
+              : `${formatPriceWithSpaces(listing.regularPrice)} DA`}
+            {listing.type === "rent" && " / jour"}
           </p>
-          <div className="text-slate-700 flex gap-4">
+          {/* <div className="text-slate-700 flex gap-4">
             <div className="font-bold text-xs">
-              {listing.bedrooms > 1
-                ? `${listing.bedrooms} Chambres `
-                : `${listing.bedrooms} Chambre `}
+              {listing.seats > 1
+                ? `${listing.seats} Sièges `
+                : `${listing.seats} Siège `}
             </div>
             <div className="font-bold text-xs">
-              {listing.bathrooms > 1
-                ? `${listing.bathrooms} Salles de bains `
-                : `${listing.bathrooms} Salle de bain `}
+              {listing.doors > 1
+                ? `${listing.doors} Portes `
+                : `${listing.doors} Porte `}
             </div>
-          </div>
+            <div className="font-bold text-xs">
+              {listing.year && <span>{listing.year}</span>}
+            </div>
+            <div className="font-bold text-xs">
+              {listing.mileage && <span>{listing.mileage}</span>}
+            </div>
+            <div className="font-bold text-xs">
+              {listing.color && <span>{listing.color}</span>}
+            </div>
+            <div className="font-bold text-xs">
+              {listing.brand && <span>{listing.brand}</span>}
+            </div>
+          </div> */}
         </div>
       </Link>
     </div>
@@ -61,7 +77,11 @@ ListingItem.propTypes = {
     discountPrice: PropTypes.number.isRequired,
     regularPrice: PropTypes.number.isRequired,
     type: PropTypes.oneOf(["rent", "sale"]).isRequired,
-    bedrooms: PropTypes.number.isRequired,
-    bathrooms: PropTypes.number.isRequired,
+    seats: PropTypes.number.isRequired,
+    doors: PropTypes.number.isRequired,
+    year: PropTypes.number,
+    mileage: PropTypes.number,
+    color: PropTypes.string,
+    brand: PropTypes.string,
   }).isRequired,
 };

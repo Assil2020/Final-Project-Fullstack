@@ -14,16 +14,18 @@ export const deleteListing = async (req, res, next) => {
   const listing = await Listing.findById(req.params.id);
 
   if (!listing) {
-    return next(errorHandler(404, "Listing not found!"));
+    return next(errorHandler(404, "Annonce introuvable!"));
   }
 
   if (req.user.id !== listing.userRef) {
-    return next(errorHandler(401, "You can only delete your own listings!"));
+    return next(
+      errorHandler(401, "Vous ne pouvez supprimer que vos propres annonces!")
+    );
   }
 
   try {
     await Listing.findByIdAndDelete(req.params.id);
-    res.status(200).json("Listing has been deleted!");
+    res.status(200).json("L'annonce a été supprimée!");
   } catch (error) {
     next(error);
   }
@@ -32,10 +34,15 @@ export const deleteListing = async (req, res, next) => {
 export const updateListing = async (req, res, next) => {
   const listing = await Listing.findById(req.params.id);
   if (!listing) {
-    return next(errorHandler(404, "Listing not found!"));
+    return next(errorHandler(404, "Annonce introuvable!"));
   }
   if (req.user.id !== listing.userRef) {
-    return next(errorHandler(401, "You can only update your own listings!"));
+    return next(
+      errorHandler(
+        401,
+        "Vous ne pouvez mettre à jour que vos propres annonces!"
+      )
+    );
   }
 
   try {
@@ -54,7 +61,7 @@ export const getListing = async (req, res, next) => {
   try {
     const listing = await Listing.findById(req.params.id);
     if (!listing) {
-      return next(errorHandler(404, "Listing not found!"));
+      return next(errorHandler(404, "Annonce introuvable!"));
     }
     res.status(200).json(listing);
   } catch (error) {
@@ -72,18 +79,6 @@ export const getListings = async (req, res, next) => {
       offer = { $in: [false, true] };
     }
 
-    let furnished = req.query.furnished;
-
-    if (furnished === undefined || furnished === "false") {
-      furnished = { $in: [false, true] };
-    }
-
-    let parking = req.query.parking;
-
-    if (parking === undefined || parking === "false") {
-      parking = { $in: [false, true] };
-    }
-
     let type = req.query.type;
 
     if (type === undefined || type === "all") {
@@ -96,13 +91,26 @@ export const getListings = async (req, res, next) => {
 
     const order = req.query.order || "desc";
 
-    const listings = await Listing.find({
+    const brand = req.query.brand || "";
+    const model = req.query.model || "";
+    const year = isNaN(req.query.year) ? undefined : parseInt(req.query.year);
+    const fuelType = req.query.fuelType || "";
+    const transmission = req.query.transmission || "";
+
+    const filter = {
       name: { $regex: searchTerm, $options: "i" },
       offer,
-      furnished,
-      parking,
       type,
-    })
+    };
+
+    if (brand) filter.brand = { $regex: brand, $options: "i" };
+    if (model) filter.model = { $regex: model, $options: "i" };
+    if (year !== undefined) filter.year = year;
+    if (fuelType) filter.fuelType = { $regex: fuelType, $options: "i" };
+    if (transmission)
+      filter.transmission = { $regex: transmission, $options: "i" };
+
+    const listings = await Listing.find(filter)
       .sort({ [sort]: order })
       .limit(limit)
       .skip(startIndex);

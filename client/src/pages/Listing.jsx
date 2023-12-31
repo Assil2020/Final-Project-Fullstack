@@ -55,7 +55,7 @@ export default function Listing() {
 
   return (
     <main
-      className="bg-black"
+      className="bg-white"
       style={{
         backgroundImage:
           "url('https://www.freepik.com/free-photo/grunge-abstract-metal-background_4007400.htm#query=car%20background&position=5&from_view=keyword&track=ais&uuid=b088e1d9-58ff-421f-985b-722ac7fefd67')",
@@ -107,7 +107,7 @@ export default function Listing() {
               {listing.type === "rent" && " / jour"}
             </p>
 
-            <p className="flex items-center mt-6 gap-2 text-slate-600  text-sm">
+            <p className="flex items-center mt-6 gap-2 text-green-900  text-sm">
               <FaMapMarkerAlt className="text-green-900" />
               {listing.address}
             </p>
@@ -121,7 +121,7 @@ export default function Listing() {
                 </p>
               )}
             </div>
-            <p className="text-slate-800">
+            <p className="text-gray-600">
               <span className="font-semibold text-black">Description - </span>
               {listing.description}
             </p>

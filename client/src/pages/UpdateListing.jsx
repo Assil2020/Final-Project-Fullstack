@@ -708,7 +708,7 @@ export default function CreateListing() {
         <div className="text-slate-100 flex flex-col flex-1 gap-4">
           <p className="font-semibold">
             Images:
-            <span className="font-normal text-gray-400 ml-2 ">
+            <span className="font-normal text-slate-200 ml-2 ">
               La première image sera la couverture (max 6)
             </span>
           </p>

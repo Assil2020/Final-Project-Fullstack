@@ -46,14 +46,7 @@ export default function Home() {
     fetchOfferListings();
   }, []);
   return (
-    <div
-      className="bg-black"
-      style={{
-        backgroundImage:
-          "url('https://img.freepik.com/free-photo/sports-car-races-through-dark-blurred-motion-generative-ai_188544-12490.jpg?w=2000&t=st=1703972353~exp=1703972953~hmac=2d16f7dcec1b93eb614917abe50925794961b5893a8ab3e604e7cc49577ebdff')",
-        backgroundAttachment: "fixed",
-      }}
-    >
+    <div>
       {/* top */}
       <div className="flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto">
         <h1 className="text-gray-200 font-bold text-3xl lg:text-6xl">

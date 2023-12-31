@@ -70,10 +70,10 @@ export default function SignUp() {
           {loading ? "Chargement..." : "S'inscrire"}
         </button>
       </form>
-      <div className="flex gap-2 mt-5">
+      <div className="text-slate-100 flex gap-2 mt-5">
         <p>Avez-vous un compte?</p>
         <Link to={"/sign-in"}>
-          <span className="text-blue-700">Se connecter</span>
+          <span className="text-green-700">Se connecter</span>
         </Link>
       </div>
       {error && <p className="text-red-500 mt-5">{error}</p>}
